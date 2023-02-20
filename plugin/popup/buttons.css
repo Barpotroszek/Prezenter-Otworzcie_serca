@@ -1,0 +1,14 @@
+.arrow{
+    height: 1em;
+    width: 1em;
+    border: solid white;
+    rotate: calc(var(--rotation)*90deg - 45deg);
+    border-bottom: 5px;
+    border-left: 5px;
+    transform: translate(-10%, 15%);
+}
+
+#top {grid-row: 1;grid-column: 2;--rotation: 0;}
+#right {grid-row: 2;grid-column: 3;--rotation: 1;}
+#bottom{grid-row:3;grid-column: 2;--rotation: 2;}
+#left {grid-row: 2; grid-column: 1; --rotation: 3;}

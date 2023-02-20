@@ -1,0 +1,34 @@
+{
+    "manifest_version": 3,
+    "name": "Prezenter - Otwórzcie Serca",
+    "description": "Do wyświetlania tekstu pieśni ze śpiewnika \"Otwórzcie serca\"",
+    "version": "1.0.0",
+    "icons": {
+        "16": "icons/Square44x44Logo.targetsize-16.png",
+        "32": "icons/Square44x44Logo.targetsize-32.png",
+        "48": "icons/Square44x44Logo.targetsize-48.png",
+        "64": "icons/Square44x44Logo.targetsize-64.png"
+    },
+    "action": {
+        "default_popup": "popup/index.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://otworzcieserca.pl/cala-zawartosc/*-*"
+            ],
+            "js": [
+                "content_scripts/parser/inject.js"
+            ],
+            "css": [
+                "content_scripts/parser/button_style.css"
+            ]
+        }
+    ],
+    "permissions": [
+        "tabs", "storage"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    }
+}

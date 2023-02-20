@@ -1,0 +1,56 @@
+<!DOCTYPE html >
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="3"> -->
+    <link rel="stylesheet" href="../variables.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="buttons.css">
+    <script src="script.js" defer></script>
+    <script src="../theme-setting.js"></script>
+    <title>Controller   </title>
+</head>
+
+<body>
+    <div id="main-tools">
+        <h1>Narzędzia główne</h1>
+        <div class="wrapper" style="flex-direction: column;">
+
+        <div class="main-tools">
+            <button id="search-song">Znajdź/zmień pieśń</button>
+            <button id="stop-presentation" disabled>Zatrzymaj prezentację</button>
+            <button id="external-tab" style="grid-area: c;">Otwórz kontroler w nowym oknie</button>
+        </div>
+        <label style="display:block; width: max-content; cursor: pointer;" for="dark-mode"><input type="checkbox" name="dark-mode" id="dark-mode"> Ciemny motyw</label>
+    </div>
+</div>
+    <div id="presentation-control">
+        <h1>Sterowanie prezentacją</h1>
+        <q id="title" style="text-align: center; display: block;">...</q>
+        <div class="wrapper">
+            <div class="grid_area">
+                <!-- <button class="control_btn" id="top"><div class="arrow"></div></button> -->
+                <button class="control_btn" id="right">
+                    <div class="arrow"></div>
+                </button>
+                <!-- <button class="control_btn" id="bottom"><div class="arrow"></div></button> -->
+                <button class="control_btn" id="left">
+                    <div class="arrow"></div>
+                </button>
+                <div id="position-div">
+                    <div style="display: flex; justify-content: center;">
+                        <div id="current-pos" contenteditable>Ref.</div>
+                        &nbsp;/&nbsp;<label id="full-length">15</label>
+                    </div>
+                    <button id="chorus-btn" disabled>Refren</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
