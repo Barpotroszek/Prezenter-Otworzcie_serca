@@ -10,22 +10,20 @@ body {
     position: relative;
     height: max-content;
     margin: 1em;
-    /* padding: 1em; */
 }
 
 button {
     cursor: pointer;
     display: block;
+    margin: 0;
     margin-top: .4em;
     border-radius: .2em;
     width: max-content;
     padding: .3em .5em;
-    margin: 0;
     color: var(--light-font-color);
     background-color: var(--main-color);
     box-sizing: border-box;
     border: none;
-    /* box-shadow: 0 0 2px var(--second-color); */
     transition: all .2s;
 }
 
@@ -81,9 +79,7 @@ h1 {
 .grid_area {
     grid-column: 2;
     display: grid;
-    /* width: max-content; */
     grid-template-columns: 1fr 2fr 1fr;
-    /* grid-template-rows: repeat(3, 1fr); */
 }
 
 .grid_area>.control_btn {
@@ -99,8 +95,6 @@ h1 {
 #position-div {
     grid-column: 2;
     grid-row: 2;
-    /* padding: .7em; */
-    /* width: max-content; */
     margin: 0 .3em;
     font-size: 1.2em;
     display: grid;

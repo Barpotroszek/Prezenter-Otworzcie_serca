@@ -1,18 +1,16 @@
 class Presentation {
   constructor(data) {
-    // if(data !== undefined)
     this.title = data ? data.title : null;
     this.chorus = data ? data.chorus : null;
     this.verses = data ? data.verses : ["Tekst tymczasowy..."];
     this.url = data ? data.url : null;
     this.current = null;
     this.previous = null;
-    // this.length = this.verses.length;
     this.first_chorus = data ? data.first_chorus : true;
     chrome.storage.session.set(this);
     this.loadSlide(this.first_chorus ? "chorus" : 1);
   }
-  
+
   loadSlide(id) {
     id = id || 1;
     console.log(
@@ -36,7 +34,6 @@ class Presentation {
   }
 
   nextSlide() {
-    // console.log(this);
     let temp = this.current; // value will be set to previous
     if (this.current == "chorus" && this.previous !== this.verses.length) {
       // currently is chorus
@@ -54,12 +51,9 @@ class Presentation {
       this.loadSlide("chorus");
     } else return;
     this.previous = temp;
-    // console.log(this);
   }
 
   previousSlide() {
-    // console.log(this);
-
     let temp = this.current; // value will be set to previous
 
     if (this.previous === 1 && !this.first_chorus) {
@@ -87,9 +81,6 @@ class Presentation {
     this.current = this.previous;
     this.previous = temp;
     this.loadSlide(this.current);
-
-    // console.log(this);
-    // console.log("END");
   }
 
   jumpTo(id) {
@@ -108,7 +99,6 @@ function loadData(data) {
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.cmd === "presentation.stop") window.close()
   else if (msg.cmd === "subtitles.load") {
-    // console.log("New data", msg);
     loadData(msg.data);
     chrome.runtime.sendMessage({ sender: "presentation", status: "loaded" });
   }

@@ -1,7 +1,7 @@
 
 
 // creating listener for uploading data request
-var song_info;
+let song_info;
 const main_tools = {
   search_song: document.getElementById("search-song"),
   stop_presentation: document.getElementById("stop-presentation"),
@@ -132,9 +132,6 @@ chrome.storage.session.get().then((presentation) => {
 
 
 chrome.storage.session.onChanged.addListener(({ current, verses, title }) => {
-  // const { current } = presentation.newValue;
-  // console.log(presentation)
-  // setWindowSize();
   if(title) location.reload();
   if (verses) {
     controls.length.innerText = verses.length;
