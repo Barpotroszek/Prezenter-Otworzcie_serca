@@ -43,3 +43,4 @@ Prezentacją można sterować z poziomu "**Centrum Sterowania**(które można ot
 ## W przyszłości:
 - [ ] Możliwość dodawania własnego tekstu(szczególnie użyteczne przy wyświetlaniu tekstu psalmu)
 - [ ] Możliwość otwarcia `Prezentera` na pełny ekran z poziomu `Kontrolera`
+- [ ] Możliwość kontrolowania prezentacją z poziomu telefonu, lub innego zewnętrzengo urządzenia
