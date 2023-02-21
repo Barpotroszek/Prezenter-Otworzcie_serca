@@ -97,24 +97,24 @@ let blanked = false;
 const blank_screen = (d) => {
   blanked = d;
   document.documentElement.setAttribute("blank", d);
-}
+};
 
 function loadData(data) {
   current_song = new Presentation(data);
 }
 
-chrome.storage.session.get(["blank"]).then((d)=>{
-  blank_screen(d.blank==true)
-  document.documentElement.setAttribute("blank", d.blank==true);
-})
-chrome.storage.session.onChanged.addListener((d)=>{
-  if(d.blank == undefined || d.blank == null) return;
-  blank_screen(d.blank.newValue==true)
-  console.log("d:", d.blank)
-})
+chrome.storage.session.get(["blank"]).then((d) => {
+  blank_screen(d.blank == true);
+  document.documentElement.setAttribute("blank", d.blank == true);
+});
+chrome.storage.session.onChanged.addListener((d) => {
+  if (d.blank == undefined || d.blank == null) return;
+  blank_screen(d.blank.newValue == true);
+  console.log("d:", d.blank);
+});
 
 chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.cmd === "presentation.stop") window.close()
+  if (msg.cmd === "presentation.stop") window.close();
   else if (msg.cmd === "subtitles.load") {
     loadData(msg.data);
     chrome.runtime.sendMessage({ sender: "presentation", status: "loaded" });
@@ -127,7 +127,8 @@ chrome.runtime.onMessage.addListener((msg) => {
 document.addEventListener("keydown", (e) => {
   if (e.key === " " || e.key === "ArrowRight") current_song.nextSlide();
   else if (e.key === "ArrowLeft") current_song.previousSlide();
-  else if (e.key.toLocaleLowerCase() == "b") chrome.storage.session.set({blank: !blanked})
+  else if (e.key.toLocaleLowerCase() == "b")
+    chrome.storage.session.set({ blank: !blanked });
 });
 
 chrome.tabs.getCurrent((tab) =>
@@ -140,6 +141,6 @@ chrome.tabs.getCurrent((tab) =>
 
 loadData();
 
-window.onclose = async ()=>
-  await chrome.storage.session.set({ title: null, verses: null});
+window.onclose = async () =>
+  await chrome.storage.session.set({ title: null, verses: null });
 window.addEventListener("beforeunload", window.onclose);
