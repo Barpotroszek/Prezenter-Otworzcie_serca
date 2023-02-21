@@ -26,6 +26,7 @@ Warto przypiąć tą wtyczkę do paska. Żeby to zrobić należy kliknąć na g�
 1. Naciśnij na ikonkę wtyczki, Otwórzcie serca
 2. Pojawi się `Kontroler` / `Centrum sterowania`. Naciśnij **Znajdź/zmień pieśń**
 3. Pojawi się okienko z listą pieśni do wyboru. Wybierz jedną z nich, a potem kliknij "**Załaduj tekst tej pieśni**":
+
 ![song_searcher.png](preview/song_search.png)
 4. Pojawi się kolejne okno zatytułowane: `Presenter`. Na nim będzie wyświetlać się tekst pieśni. Otwórz to na odpowiednim ekranie. Aby otworzyć je w pełnym ekranie naciśnij na klawiaturze **F12**;
 ![](preview/light_presenter.png)
@@ -36,7 +37,8 @@ Warto przypiąć tą wtyczkę do paska. Żeby to zrobić należy kliknąć na g�
 ![](preview/light_ready_centre.png) ![](preview/dark_ready_centre.png)
 
 Prezentacją można sterować z poziomu "**Centrum Sterowania**(które można otworzyć w oddzielnym ekranie po naciśnięciu przycisku: "**Otwórz kontroler w nowym oknie**"), albo poprzez używanie strzałek i spacji gdy okno `Presenter` jest aktywne
-
+## Dodano(wersja 1.0.1):
+- [x] Link do strony, skąd tekst pieśni został pobrany(w tytule pieśni)
 ## W przyszłości:
 - [ ] Możliwość dodawania własnego tekstu(szczególnie użyteczne przy wyświetlaniu tekstu psalmu)
 - [ ] Możliwość otwarcia `Prezentera` na pełny ekran z poziomu `Kontrolera`

@@ -11,7 +11,8 @@ function textParser(){
         title: document.getElementsByClassName("article-title")[0].textContent.match(title_rgx).groups.text,
         chorus: null, 
         verses: new Array(),
-        first_chorus: false
+        first_chorus: false,
+        url: window.location.href
     } // base, scheme
     if(htmlElem.innerHTML.includes("<ol>")){
         console.log("It got list");

@@ -4,6 +4,7 @@ class Presentation {
     this.title = data ? data.title : null;
     this.chorus = data ? data.chorus : null;
     this.verses = data ? data.verses : ["Tekst tymczasowy..."];
+    this.url = data ? data.url : null;
     this.current = null;
     this.previous = null;
     // this.length = this.verses.length;
@@ -11,7 +12,7 @@ class Presentation {
     chrome.storage.session.set(this);
     this.loadSlide(this.first_chorus ? "chorus" : 1);
   }
-
+  
   loadSlide(id) {
     id = id || 1;
     console.log(

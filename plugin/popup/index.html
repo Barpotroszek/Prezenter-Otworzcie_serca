@@ -1,4 +1,4 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,32 +11,30 @@
     <link rel="stylesheet" href="buttons.css">
     <script src="script.js" defer></script>
     <script src="../theme-setting.js"></script>
-    <title>Controller   </title>
+    <title>Controller </title>
 </head>
 
 <body>
     <div id="main-tools">
         <h1>Narzędzia główne</h1>
         <div class="wrapper" style="flex-direction: column;">
-
-        <div class="main-tools">
-            <button id="search-song">Znajdź/zmień pieśń</button>
-            <button id="stop-presentation" disabled>Zatrzymaj prezentację</button>
-            <button id="external-tab" style="grid-area: c;">Otwórz kontroler w nowym oknie</button>
+            <div class="main-tools">
+                <button id="search-song">Znajdź/zmień pieśń</button>
+                <button id="stop-presentation" disabled>Zatrzymaj prezentację</button>
+                <button id="external-tab" style="grid-area: c;">Otwórz kontroler w nowym oknie</button>
+            </div>
+            <label style="display:block; width: max-content; cursor: pointer;" for="dark-mode"><input type="checkbox"
+                    name="dark-mode" id="dark-mode"> Ciemny motyw</label>
         </div>
-        <label style="display:block; width: max-content; cursor: pointer;" for="dark-mode"><input type="checkbox" name="dark-mode" id="dark-mode"> Ciemny motyw</label>
     </div>
-</div>
     <div id="presentation-control">
         <h1>Sterowanie prezentacją</h1>
-        <q id="title" style="text-align: center; display: block;">...</q>
+        <p style="text-align: center; display: block;">Tytuł: <a id="title" target="_blank">temporary_url</a></p>
         <div class="wrapper">
             <div class="grid_area">
-                <!-- <button class="control_btn" id="top"><div class="arrow"></div></button> -->
                 <button class="control_btn" id="right">
                     <div class="arrow"></div>
                 </button>
-                <!-- <button class="control_btn" id="bottom"><div class="arrow"></div></button> -->
                 <button class="control_btn" id="left">
                     <div class="arrow"></div>
                 </button>

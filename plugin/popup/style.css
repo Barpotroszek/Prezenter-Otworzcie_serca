@@ -45,15 +45,13 @@ h1 {
     text-align: center;
 }
 
-q {
+#title {
     font-size: larger;
     font-style: italic;
     font-weight: bolder;
 }
-q::before {
-    content: "Tytuł: ";
-    font-style:normal;
-    font-weight: initial;
+#title:visited{
+    color: inherit;
 }
 
 .new-line {

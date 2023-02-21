@@ -69,6 +69,7 @@ for (const [name, elem] of Object.entries(main_tools)) {
 }
 
 function setWindowSize(){
+  // updating size of window to fit only the content
   chrome.windows.update(Number(window.name), {
     width: document.body.offsetWidth + 40,
     height: document.body.offsetHeight + 80
@@ -79,52 +80,53 @@ chrome.windows.getCurrent().then((id)=>window.name = String(id.id))
 chrome.storage.session.get().then((presentation) => {
   console.log("presentation:", presentation);
   song_info = presentation;
-chrome.windows.getCurrent().then((id)=>window.name = String(id.id))
+  chrome.windows.getCurrent().then((id)=>window.name = String(id.id))
   main_tools.external_tab.disabled = location.search !== '';
   let state = presentation.title === undefined || presentation.title === null? true : false;
   document.getElementById("presentation-control").hidden = state;
   main_tools.stop_presentation.disabled = state;
-  controls.title.innerText = presentation.title;
+
   if(location.search !== '')
     setWindowSize()
   
-  if (!state) {
-    controls.current_pos.innerText =
-      presentation.current === "chorus" ? "Ref." : presentation.current;
-    console.log(
-      "state:",
-      presentation.current === "chorus",
-      presentation.chorus === null
-    );
-    controls.chorus_btn.disabled =
-      presentation.current === "chorus" || presentation.chorus === undefined || presentation.chorus === null;
-    controls.length.innerText = presentation.verses.length;
-    document.querySelectorAll(".control_btn").forEach((btn) =>
-      btn.addEventListener("click", () =>
-        chrome.runtime.sendMessage({
-          cmd: "slide." + (btn.id === "left" ? "prev" : "next"),
-        })
-      )
-    );
-
-    controls.chorus_btn.addEventListener("click", () =>
-      chrome.runtime.sendMessage({ cmd: "slide.jump", data: "chorus" })
-    );
-    const jump_fnc = () =>
+  if (state) return;
+  controls.title.innerText = presentation.title;
+  controls.title.href = presentation.url;
+  controls.current_pos.innerText =
+    presentation.current === "chorus" ? "Ref." : presentation.current;
+  console.log(
+    "state:",
+    presentation.current === "chorus",
+    presentation.chorus === null
+  );
+  controls.chorus_btn.disabled =
+    presentation.current === "chorus" || presentation.chorus === undefined || presentation.chorus === null;
+  controls.length.innerText = presentation.verses.length;
+  document.querySelectorAll(".control_btn").forEach((btn) =>
+    btn.addEventListener("click", () =>
       chrome.runtime.sendMessage({
-        cmd: "slide.jump",
-        data: controls.current_pos.innerText,
-      });
+        cmd: "slide." + (btn.id === "left" ? "prev" : "next"),
+      })
+    )
+  );
 
-    controls.current_pos.addEventListener("keypress", (e) => {
-      if (e.key == "Enter") {
-        if (e.target.innerText != "") jump_fnc();
-        controls.current_pos.blur();
-        e.preventDefault();
-      } else if (e.key.length == 1 && !/\d+/.test(e.key))
-      e.preventDefault();
+  controls.chorus_btn.addEventListener("click", () =>
+    chrome.runtime.sendMessage({ cmd: "slide.jump", data: "chorus" })
+  );
+  const jump_fnc = () =>
+    chrome.runtime.sendMessage({
+      cmd: "slide.jump",
+      data: controls.current_pos.innerText,
     });
-  }
+
+  controls.current_pos.addEventListener("keypress", (e) => {
+    if (e.key == "Enter") {
+      if (e.target.innerText != "") jump_fnc();
+      controls.current_pos.blur();
+      e.preventDefault();
+    } else if (e.key.length == 1 && !/\d+/.test(e.key))
+    e.preventDefault();
+  });
 });
 
 
