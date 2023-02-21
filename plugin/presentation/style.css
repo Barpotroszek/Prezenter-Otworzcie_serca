@@ -1,0 +1,22 @@
+html {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    font-size: var(--font-size);
+    word-break: keep-all;
+    width: fit-content;
+    text-align: center;
+    margin: .2em;
+}
+
+html[blank="true"] {
+    --main-background-color: black;
+}
+
+html[blank="true"]>body {
+    visibility: hidden;
+}

@@ -76,8 +76,12 @@ label {
     column-gap: .2em;
 }
 
-.tools-wrapper>button {
+.tools-wrapper> * {
     width: 100%;
+}
+
+.tools-wrapper>.wide-btn {
+    grid-column: 1/3;
 }
 
 .wrapper {
