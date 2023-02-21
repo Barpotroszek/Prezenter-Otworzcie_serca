@@ -18,10 +18,10 @@
     <div id="main-tools">
         <h1>Narzędzia główne</h1>
         <div class="wrapper" style="flex-direction: column;">
-            <div class="main-tools">
+            <div class="tools-wrapper">
                 <button id="search-song">Znajdź/zmień pieśń</button>
                 <button id="stop-presentation" disabled>Zatrzymaj prezentację</button>
-                <button id="external-tab" style="grid-area: c;">Otwórz kontroler w nowym oknie</button>
+                <button id="external-tab" style="grid-column: 1/3;">Otwórz kontroler w nowym oknie</button>
             </div>
             <label style="display:block; width: max-content; cursor: pointer;" for="dark-mode"><input type="checkbox"
                     name="dark-mode" id="dark-mode"> Ciemny motyw</label>
@@ -31,7 +31,7 @@
         <h1>Sterowanie prezentacją</h1>
         <p style="text-align: center; display: block;">Tytuł: <a id="title" target="_blank">temporary_url</a></p>
         <div class="wrapper">
-            <div class="grid_area">
+            <div id="steering">
                 <button class="control_btn" id="right">
                     <div class="arrow"></div>
                 </button>
@@ -46,6 +46,7 @@
                     <button id="chorus-btn" disabled>Refren</button>
                 </div>
             </div>
+
         </div>
     </div>
 </body>
