@@ -24,42 +24,40 @@ chrome.runtime.onMessage.addListener(async (msg) => {
       // console.log({ ...storage });
       return;
     }
-    if(msg.cmd === "presentation.stop"){
+    if (msg.cmd === "presentation.stop") {
       storage.presenter = undefined;
     }
   }
 
   // Filtering messages from scrapper
-  if (msg.sender === "scrapper") {
-    // console.log("MESSAGEE:", msg);
-    if (msg.cmd === "subtitles.load") {
-      // if (!storage.scrap) return;
+  // console.log("MESSAGEE:", msg);
+  if (msg.cmd === "subtitles.load") {
+    // if (!storage.scrap) return;
 
-      try {
-        chrome.tabs.remove(storage.scrap).catch(() => {}); // closing useless tab/winodw        
-      } catch (error) {}
+    try {
+      chrome.tabs.remove(storage.scrap).catch(() => {}); // closing useless tab/winodw
+    } catch (error) {}
 
-      console.log("DATA:", msg.data);
-      storage.data = msg.data;
+    console.log("DATA:", msg.data);
+    storage.data = msg.data;
 
-      // if there is opened presentation window, quit
-      // data should be updated, because of the message this listener was invoked
-      try {
-        await chrome.tabs.get(storage.presenter);
-      } catch (err) {
-        // else create this one
-        console.log("GOt error, but idc");
-        let tmp = await chrome.windows.create({
-          focused: true,
-          type: "popup",
-          // state: "fullscreen",
-          url: "/presentation/index.html",
-        });
-        storage.presenter = tmp.tabs[0].id
-        tmp.alwaysOnTop = true;
-      }
-      return;
+    // if there is opened presentation window, quit
+    // data should be updated, because of the message this listener was invoked
+    try {
+      await chrome.tabs.get(storage.presenter);
+    } catch (err) {
+      // else create this one
+      console.log("GOt error, but idc");
+      let tmp = await chrome.windows.create({
+        focused: true,
+        type: "popup",
+        // state: "fullscreen",
+        url: "/presentation/index.html",
+      });
+      storage.presenter = tmp.tabs[0].id;
+      tmp.alwaysOnTop = true;
     }
+    return;
   }
 
   // fire when the presenter is ready, send it data

@@ -40,7 +40,7 @@ Prezentacją można sterować z poziomu "**Centrum Sterowania**(które można ot
 ## Dodano(wersja 1.0.1):
 - [x] Link do strony, skąd tekst pieśni został pobrany(w tytule pieśni)
 - [x] Wygaszanie prezentera (z poziomu klawiatury lub z poziomu `Kontrolera`) 
+- [x] Możliwość dodawania własnego tekstu(szczególnie użyteczne przy wyświetlaniu tekstu psalmu)
 ## W przyszłości:
-- [ ] Możliwość dodawania własnego tekstu(szczególnie użyteczne przy wyświetlaniu tekstu psalmu)
 - [ ] Możliwość otwarcia `Prezentera` na pełny ekran z poziomu `Kontrolera`
 - [ ] Możliwość kontrolowania prezentacją z poziomu telefonu, lub innego zewnętrzengo urządzenia

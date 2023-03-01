@@ -15,6 +15,7 @@ const controls = {
   current_pos: document.getElementById("current-pos"),
   length: document.getElementById("full-length"),
   blank_screen: document.getElementById("blank-screen"),
+  custom_text: document.getElementById("custom-text")
 };
 
 for (const [name, elem] of Object.entries(main_tools)) {
@@ -109,6 +110,21 @@ function setControlsListeners() {
             cmd: "slide." + (name === "left_btn" ? "prev" : "next"),
           })
         );
+        break;
+      case "custom_text":
+        elem.addEventListener("click", ()=>{
+          let temp = window.open("/custom-text/index.html", "_blank", "name=custom-text,popup=1,height=385,width=360")
+          window.addEventListener("message", (e)=>{
+            console.log(e);
+            temp.close();
+            chrome.runtime.sendMessage({sender: "popup", cmd: "subtitles.load", data: {
+              verses: [e.data],
+              title: e.data.slice(0, 15).replace("\n", " ")+"...",
+            }
+            });
+          })
+          window.onclose = ()=> temp.close();
+        })
         break;
     }
   }
