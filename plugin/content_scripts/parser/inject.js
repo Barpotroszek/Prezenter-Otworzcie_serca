@@ -8,7 +8,7 @@ function textParser(){
     // console.log(title);
 
     const song = {
-        title: document.getElementsByClassName("article-title")[0].textContent.match(title_rgx).groups.text,
+        title: document.getElementsByClassName("article-title")[0].textContent.match(title_rgx).groups.text.replace(/\t+/, ''),
         chorus: null, 
         verses: new Array(),
         first_chorus: false,
