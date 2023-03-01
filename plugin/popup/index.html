@@ -21,6 +21,10 @@
             <div class="tools-wrapper">
                 <button id="search-song">Znajdź/zmień pieśń</button>
                 <button id="stop-presentation" disabled>Zatrzymaj prezentację</button>
+                <select name="downloaded-list" id="downloaded-list" class="wide-btn">
+                    <option value="" >Wybierz pobraną pieśń...</option>
+                </select>
+                <button id="upload-downloaded" class="wide-btn" disabled>Wgraj wybraną pieśń</button>
                 <button id="external-tab" class="wide-btn">Otwórz kontroler w nowym oknie</button>
             </div>
             <label style="display:block; width: max-content; cursor: pointer;" for="dark-mode"><input type="checkbox"
@@ -49,6 +53,7 @@
             <div class="tools-wrapper">
                 <label for="blank-screen"><input type="checkbox" id="blank-screen" name="blank-screen"> Wygaś prezenter</label>
                 <button id="custom-text">Dodaj własny tekst</button>
+                <button id="download-current">Pobierz pieśń</button>
             </div>
         </div>
     </div>

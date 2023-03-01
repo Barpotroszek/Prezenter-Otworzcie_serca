@@ -5,6 +5,8 @@ const main_tools = {
   stop_presentation: document.getElementById("stop-presentation"),
   external_tab: document.getElementById("external-tab"),
   dark_mode: document.getElementById("dark-mode"),
+  downloaded_list: document.getElementById("downloaded-list"),
+  upload_downloaded: document.getElementById("upload-downloaded"),
 };
 
 const controls = {
@@ -15,7 +17,8 @@ const controls = {
   current_pos: document.getElementById("current-pos"),
   length: document.getElementById("full-length"),
   blank_screen: document.getElementById("blank-screen"),
-  custom_text: document.getElementById("custom-text")
+  custom_text: document.getElementById("custom-text"),
+  download_current: document.getElementById("download-current"),
 };
 
 for (const [name, elem] of Object.entries(main_tools)) {
@@ -59,7 +62,7 @@ for (const [name, elem] of Object.entries(main_tools)) {
 
     case "dark_mode":
       elem.addEventListener("change", (e) => {
-        console.log("Changing theme");
+        // console.log("Changing theme");
         chrome.storage.local.set({ theme: elem.checked ? "dark" : "light" });
         document.documentElement.setAttribute(
           "data-theme",
@@ -67,6 +70,24 @@ for (const [name, elem] of Object.entries(main_tools)) {
         );
       });
       break;
+
+    case "downloaded_list":
+      elem.addEventListener("change", () => {
+        main_tools.upload_downloaded.disabled = elem.value == "";
+      });
+      break;
+
+    case "upload_downloaded":
+      elem.addEventListener("click", () => {
+        chrome.storage.local.get(["saved"], (e) => {
+          console.log("Will be sent:", e, e.saved[main_tools.downloaded_list.value])
+          chrome.runtime.sendMessage({
+            sender: "popup",
+            cmd: "subtitles.load",
+            data: e.saved[main_tools.downloaded_list.value],
+          });
+        });
+      });
   }
 }
 
@@ -111,21 +132,55 @@ function setControlsListeners() {
           })
         );
         break;
+
       case "custom_text":
-        elem.addEventListener("click", ()=>{
-          let temp = window.open("/custom-text/index.html", "_blank", "name=custom-text,popup=1,height=385,width=360")
-          window.addEventListener("message", (e)=>{
+        elem.addEventListener("click", () => {
+          let temp = window.open(
+            "/custom-text/index.html",
+            "_blank",
+            "name=custom-text,popup=1,height=385,width=360"
+          );
+          window.addEventListener("message", (e) => {
             console.log(e);
             temp.close();
-            chrome.runtime.sendMessage({sender: "popup", cmd: "subtitles.load", data: {
-              verses: [e.data],
-              title: e.data.slice(0, 15).replace("\n", " ")+"...",
-            }
+            chrome.runtime.sendMessage({
+              sender: "popup",
+              cmd: "subtitles.load",
+              data: {
+                verses: [e.data],
+                title: e.data.slice(0, 15).replace("\n", " ") + "...",
+              },
             });
-          })
-          window.onclose = ()=> temp.close();
-        })
+          });
+          window.onclose = () => temp.close();
+        });
         break;
+
+      case "download_current":
+        elem.addEventListener("click", async () => {
+          let prev = elem.textContent;
+          elem.textContent = "Pobieranie...";
+          try {
+            let data = await chrome.storage.session.get([
+              "chorus",
+              "title",
+              "url",
+              "verses",
+              "first_chorus",
+            ]);
+            console.log("Do zapisu:", data);
+            let tmp = await chrome.storage.local.get(["saved"]);
+            if(tmp.saved == undefined || tmp.saved == null)
+              tmp.saved = {};
+            tmp.saved[data.title.match(/^(?<nr>\d+)./).groups.nr] = data;
+            console.debug("tmp", tmp);
+            await chrome.storage.local.set(tmp);
+            elem.textContent = "Pobieranie ukończone";
+          } catch (error) {
+            elem.textContent = "Coś poszło nie tak...";
+            return;
+          }
+        });
     }
   }
 }
@@ -179,4 +234,14 @@ chrome.storage.session.onChanged.addListener(({ blank, current, title }) => {
     current.newValue === "chorus" ||
     song_info.chorus === undefined ||
     song_info.chorus == null;
+});
+
+chrome.storage.local.get(["saved"], (out) => {
+  if(out.saved == undefined || out.saved == null) return;
+  for (const [id, data] of Object.entries(out.saved)) {
+    let elem = document.createElement("option");
+    elem.value = id;
+    elem.textContent = data.title;
+    main_tools.downloaded_list.appendChild(elem);
+  }
 });
