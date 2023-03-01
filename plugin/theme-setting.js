@@ -1,4 +1,5 @@
 chrome.storage.local.onChanged.addListener(({ theme }) => {
+  if(theme == undefined) return;
   document.documentElement.setAttribute("data-theme", theme.newValue);
   try {
     document.getElementById("dark-mode").checked = theme.newValue == "dark";
