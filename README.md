@@ -42,6 +42,7 @@ Prezentacją można sterować z poziomu "**Centrum Sterowania**(które można ot
 - [x] Wygaszanie prezentera (z poziomu klawiatury lub z poziomu `Kontrolera`) 
 - [x] Możliwość dodawania własnego tekstu(szczególnie użyteczne przy wyświetlaniu tekstu psalmu)
 - [x] Możliwość pobierania tekstu pieśni
+- [x] Mozliwość załadowania tekstu z poziomu prezentacji(pod klawiszami `l`(z internetu) i `p`(z pobranych + własny tekst))
 ## W przyszłości:
 - [ ] Możliwość otwarcia `Prezentera` na pełny ekran z poziomu `Kontrolera`
 - [ ] Możliwość kontrolowania prezentacją z poziomu telefonu, lub innego zewnętrzengo urządzenia
