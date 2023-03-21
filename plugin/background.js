@@ -23,7 +23,6 @@ chrome.runtime.onMessage.addListener(async (msg) => {
   }
   // Filtering messages from popup/management center
   if (msg.sender === "popup") {
-    
     if (msg.cmd === "presentation.stop") {
       storage.presenter = undefined;
     }

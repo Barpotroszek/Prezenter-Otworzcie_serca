@@ -129,12 +129,18 @@ document.addEventListener("keydown", (e) => {
   else if (e.key === "ArrowLeft") current_song.previousSlide();
   else if (e.key.toLocaleLowerCase() == "b")
     chrome.storage.session.set({ blank: !blanked });
-  else if (e.key.toLocaleLowerCase() == "l"){
+  else if (e.key.toLocaleLowerCase() == "l") {
     // alert("running scrapper")
     chrome.runtime.sendMessage({
       sender: "presenter",
       cmd: "subtitles.scrap",
     });
+  } else if (e.key.toLocaleLowerCase() == "p") {
+    let temp = window.open(
+      "/downloaded-list/index.html",
+      "_blank",
+      "name=downloaded-list,popup=1,height=385,width=360"
+    );
   }
 });
 
