@@ -9,21 +9,21 @@ let received = 0;
 // Setting listener for messages
 chrome.runtime.onMessage.addListener(async (msg) => {
   console.log("NEW MSG:", msg);
-
+  if (msg.cmd === "subtitles.scrap") {
+    // creating tab with page intended to scrap its content
+    storage.scrap = (
+      await chrome.windows.create({
+        focused: true,
+        type: "popup",
+        url: "http://otworzcieserca.pl/cala-zawartosc/",
+      })
+    ).tabs[0].id;
+    // console.log({ ...storage });
+    return;
+  }
   // Filtering messages from popup/management center
   if (msg.sender === "popup") {
-    if (msg.cmd === "subtitles.scrap") {
-      // creating tab with page intended to scrap its content
-      storage.scrap = (
-        await chrome.windows.create({
-          focused: true,
-          type: "popup",
-          url: "http://otworzcieserca.pl/cala-zawartosc/",
-        })
-      ).tabs[0].id;
-      // console.log({ ...storage });
-      return;
-    }
+    
     if (msg.cmd === "presentation.stop") {
       storage.presenter = undefined;
     }

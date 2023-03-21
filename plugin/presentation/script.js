@@ -129,6 +129,13 @@ document.addEventListener("keydown", (e) => {
   else if (e.key === "ArrowLeft") current_song.previousSlide();
   else if (e.key.toLocaleLowerCase() == "b")
     chrome.storage.session.set({ blank: !blanked });
+  else if (e.key.toLocaleLowerCase() == "l"){
+    // alert("running scrapper")
+    chrome.runtime.sendMessage({
+      sender: "presenter",
+      cmd: "subtitles.scrap",
+    });
+  }
 });
 
 chrome.tabs.getCurrent((tab) =>
