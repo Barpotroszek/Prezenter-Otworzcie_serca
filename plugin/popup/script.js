@@ -80,7 +80,11 @@ for (const [name, elem] of Object.entries(main_tools)) {
     case "upload_downloaded":
       elem.addEventListener("click", () => {
         chrome.storage.local.get(["saved"], (e) => {
-          console.log("Will be sent:", e, e.saved[main_tools.downloaded_list.value])
+          console.log(
+            "Will be sent:",
+            e,
+            e.saved[main_tools.downloaded_list.value]
+          );
           chrome.runtime.sendMessage({
             sender: "popup",
             cmd: "subtitles.load",
@@ -170,8 +174,7 @@ function setControlsListeners() {
             ]);
             console.log("Do zapisu:", data);
             let tmp = await chrome.storage.local.get(["saved"]);
-            if(tmp.saved == undefined || tmp.saved == null)
-              tmp.saved = {};
+            if (tmp.saved == undefined || tmp.saved == null) tmp.saved = {};
             tmp.saved[data.title.match(/^(?<nr>\d+)./).groups.nr] = data;
             console.debug("tmp", tmp);
             await chrome.storage.local.set(tmp);
@@ -230,14 +233,18 @@ chrome.storage.session.onChanged.addListener(({ blank, current, title }) => {
   console.log({ current });
   controls.current_pos.innerText =
     current.newValue == "chorus" ? "Ref." : current.newValue;
-  controls.chorus_btn.disabled =
-    current.newValue === "chorus" ||
-    song_info.chorus === undefined ||
-    song_info.chorus == null;
+  try {
+    controls.chorus_btn.disabled =
+      current.newValue === "chorus" ||
+      song_info.chorus === undefined ||
+      song_info.chorus == null;
+  } catch (e) {
+    controls.chorus_btn.disabled = true;
+  }
 });
 
 chrome.storage.local.get(["saved"], (out) => {
-  if(out.saved == undefined || out.saved == null) return;
+  if (out.saved == undefined || out.saved == null) return;
   for (const [id, data] of Object.entries(out.saved)) {
     let elem = document.createElement("option");
     elem.value = id;
