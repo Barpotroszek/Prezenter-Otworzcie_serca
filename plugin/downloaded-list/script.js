@@ -53,12 +53,15 @@ function setControlsListeners() {
       temp.close();
       chrome.runtime.sendMessage({
         sender: "popup",
+        url: null,
         cmd: "subtitles.load",
         data: {
-          verses: [e.data],
-          title: e.data.slice(0, 15).replace("\n", " ") + "...",
+          verses: e.data,
+          title: e.data[0].slice(0, 15).replace("\n", " ") + "...",
+          chorus: null,
         },
       });
+      alert();
       chrome.runtime.onMessage.addListener((msg)=>{
         if(msg.status == "loaded" && msg.sender == "presentation")
           window.close();

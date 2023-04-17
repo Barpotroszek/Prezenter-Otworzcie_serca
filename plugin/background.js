@@ -47,7 +47,7 @@ chrome.runtime.onMessage.addListener(async (msg) => {
     } catch (err) {
       // else create this one
       console.log("GOt error, but idc");
-      let tmp = await chrome.windows.create({
+      /* let tmp = await chrome.windows.create({
         focused: true,
         type: "popup",
         // state: "fullscreen",
@@ -55,6 +55,7 @@ chrome.runtime.onMessage.addListener(async (msg) => {
       });
       storage.presenter = tmp.tabs[0].id;
       tmp.alwaysOnTop = true;
+      */
     }
     return;
   }

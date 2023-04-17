@@ -21,6 +21,18 @@ const controls = {
   download_current: document.getElementById("download-current"),
 };
 
+var handle = null;
+
+function PostSong(data) {
+  handle = window.open("/presentation/index.html", "presenter", "popup") 
+  chrome.runtime.sendMessage({
+    sender: "popup",
+    url: null,
+    cmd: "subtitles.load",
+    data,
+  });
+}
+
 for (const [name, elem] of Object.entries(main_tools)) {
   console.log({ elem, name });
   switch (name) {
@@ -85,11 +97,7 @@ for (const [name, elem] of Object.entries(main_tools)) {
             e,
             e.saved[main_tools.downloaded_list.value]
           );
-          chrome.runtime.sendMessage({
-            sender: "popup",
-            cmd: "subtitles.load",
-            data: e.saved[main_tools.downloaded_list.value],
-          });
+          PostSong(e.saved[main_tools.downloaded_list.value]);
         });
       });
   }
@@ -147,14 +155,13 @@ function setControlsListeners() {
           window.addEventListener("message", (e) => {
             console.log(e);
             temp.close();
-            chrome.runtime.sendMessage({
-              sender: "popup",
-              cmd: "subtitles.load",
-              data: {
-                verses: [e.data],
-                title: e.data.slice(0, 15).replace("\n", " ") + "...",
-              },
-            });
+          PostSong({
+            verses: e.data,
+            title: e.data[0].slice(0, 15).replace("\n", " ") + "...",
+            chorus: null,
+            first_chorus: false,
+          });
+
           });
           window.onclose = () => temp.close();
         });
@@ -175,11 +182,22 @@ function setControlsListeners() {
             console.log("Do zapisu:", data);
             let tmp = await chrome.storage.local.get(["saved"]);
             if (tmp.saved == undefined || tmp.saved == null) tmp.saved = {};
-            tmp.saved[data.title.match(/^(?<nr>\d+)./).groups.nr] = data;
+            let nr;
+            try {
+              nr = data.title.match(/^(?<nr>\d+)./).groups.nr;
+              console.log("NR:", nr);
+              if (isNaN(nr))
+                throw TypeError;
+            } catch (error) {
+              console.log(error);
+              nr = Number(prompt("Jaki nadać numer(musi być liczba)?"));
+            }
+            tmp.saved[nr] = data;
             console.debug("tmp", tmp);
             await chrome.storage.local.set(tmp);
             elem.textContent = "Pobieranie ukończone";
           } catch (error) {
+            console.error(error);
             elem.textContent = "Coś poszło nie tak...";
             return;
           }

@@ -1,3 +1,5 @@
+window.name = "presenter";
+
 class Presentation {
   constructor(data) {
     this.title = data ? data.title : null;
@@ -6,7 +8,7 @@ class Presentation {
     this.url = data ? data.url : null;
     this.current = null;
     this.previous = null;
-    this.first_chorus = data ? data.first_chorus : true;
+    this.first_chorus = data ? data.first_chorus : false;
     chrome.storage.session.set(this);
     this.loadSlide(this.first_chorus ? "chorus" : 1);
   }
